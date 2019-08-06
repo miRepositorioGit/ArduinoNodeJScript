@@ -1,4 +1,4 @@
-/** led_control.js    recibe, envia un dato vía puerto serie, regula un magnitud analógica.
+/** led_Brigthness.js    recibe, envia un dato vía puerto serie, regula un magnitud analógica.
   *    |
   *    |--interface.js	    interface/enlaza elemento slider con led_control.js	
   *    |--interface.html	  presenta la interface gráfica en el browser
