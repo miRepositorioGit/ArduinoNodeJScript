@@ -21,14 +21,14 @@
   * 
   * Ejecución de servidor    En en la carpeta del proyecto y en línea de comandos
   * 
-  * >node led_control.js
+  * >node led_Brigthnes.js
   * 
   * Modos de operación:
   * 
   * -Move cursor at graphical interface:
   *      localhost:3000/
   *               
-  *       |=#========|											
+  *       |=#========|			<---Slider bar
   *      min		    max	  
   * 
   * -Command in your browser:
