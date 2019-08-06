@@ -1,0 +1,23 @@
+{
+  "name": "01_digitaloutput",
+  "version": "1.0.0",
+  "description": "Controla la salida binaria de un puerto mediante interfaz html-puerto serial.",
+  "main": "digitalOutPut.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miRepositorioGit/ArduinoNodeJS/tree/master/01_DigitalOutPut"
+  },
+  "keywords": [
+    "nodeJs",
+    "serialport-webServer"
+  ],
+  "author": "Martín  Cordero",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "serialport": "^7.1.5"
+  }
+}
