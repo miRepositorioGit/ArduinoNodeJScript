@@ -28,15 +28,15 @@ El segundo y tercer ítem descargan e instalan lotes de paquetes de Node.js, que
 
 Paso 3. Cada carpeta de proyecto tiene:
         
-* Un archivo con nombreDelProyecto.js, archivo de secuencia de comandos de JScript, administra los recursos de hardware y aplicaciones web.
+* Un archivo con nombreDelProyecto.js, archivo de secuencia de comandos de JavaScript, administra los recursos de hardware y aplicaciones web.
 * Un archivo package-lock.json, contiene las dependencias y versiones de los paquetes de Node.js
 * Una carpeta node_modules, contiene lotes de paquetes de Node.js
 * Una carpeta public contiene: un archivo 'html document', dos carpetas:  1/2 'js' con un archivo con interface.js 2/2 css                              con un archivo style.css.
-* Una carpeta con un archivo .ino, contiene la programación estructurada en lenguage C que admistra los recursos de hardware del sistema de desarrollo Arduino.
+* Una carpeta arduinoFile con un archivo .ino, contiene la programación estructurada en lenguage C que admistra los recursos de hardware del sistema de desarrollo Arduino.
 
 Paso 4.  Nombre del recurso de puerto COM asignado al sistema de desarrollo Arduino.
 Abrir el Administrador de dispositivos, en el árbol de hardware-recursos, home>Puertos(COM y LPT)>USB Serial Port(COM'n')
-donde el recurso para comName en nombreDelProyecto.js.
+donde el recurso para "comName" en nombreDelProyecto.js.
 
 ### Ejecución
 En la carpeta del proyecto y en línea de comandos:
