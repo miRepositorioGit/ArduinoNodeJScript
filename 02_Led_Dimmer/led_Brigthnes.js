@@ -45,26 +45,40 @@
   *   https://books.google.com.mx/books?id=kJbcDgAAQBAJ&pg=PP7&lpg=PP7&dq=marco+schwartz+building+smart+homes+with+raspberry+pi+zero+pdf&source=bl&ots=KF91FFd4Fy&sig=ACfU3U3Tbc3NbRmE59YmI7E3cv5o_rG7QA&hl=es-419&sa=X&ved=2ahUKEwiaiYSv487jAhVHLKwKHaOTADcQ6AEwCHoECAkQAQ#v=onepage&q=marco%20schwartz%20building%20smart%20homes%20with%20raspberry%20pi%20zero%20pdf&f=false
   * 
   *   Ramos Oliva Rubén.  Internet of thinks programming with JavaScript
+  *   Cápitulo 6. Controlling the LED from an interface.
   *   ISBN 978-1-78588-856-4 Packt publishing 2017.		
   *
   */
 
 /** express application
- *  app: is an object calling the top-level express() fuction
+ *  app: is an object calling the top-level express() fuction.
+ *  serialport: is an object to generate instances.
  */
 var express = require('express');
 var serialport = require('serialport');
 
 var app = express();
 var ReadLine = serialport.parsers.Readline;
-var portName = "COM10";
+var portName = "COM10";                           // tarjeta de desarrollo Arduino
 var myPort = new serialport(portName, 9600);
 var parser = myPort.pipe(new ReadLine({ delimiter: '\n' }));	
 
-    parser.on('open', function () 
+/** manejador de error en la apertura del puerto */
+
+myPort.write('main screen turn on', function(err) 
     {
-      console.log('connection is opened');
+        if (err) {
+                  return console.log('Error on write: ', err.message)
+                }
+        console.log("\t\t" + portName + ' is open');
     });
+
+// Open errors will be emitted as an error event
+myPort.on('error', function(err) 
+      {
+        console.log('Error: ', err.message)
+      });
+
 
 /** hace uso de directorio con archivos 
 *   estáticos contenidos en 'public'
@@ -86,10 +100,10 @@ var parser = myPort.pipe(new ReadLine({ delimiter: '\n' }));
       // recupera posición del slider 
         duty = req.query.payLoadData;
         
-      // convierte a JSON y envía
+      // convierte a formato JSON y envía
         answer = {Duty:duty};
         res.json(answer);
-      // envia dato por el puerto serie
+      // muestra y envia dato por el puerto serie
         showAtConsole(req.query.payLoadData);
         sendToSerial(req.query.payLoadData);
       });
@@ -142,5 +156,6 @@ function sendToSerial(arg0)
   function showInfo(arg0)
         {
             console.log('\t open browser at  http://localhost:'+arg0);
-            console.log(' \t Muestra la posición de un SLIDER '); 
+            console.log(' \t Muestra la posición de un SLIDER. ');
+            console.log(' \t CTRL + c retornar a consola de comandos. ');
         };  
