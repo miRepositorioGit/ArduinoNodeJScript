@@ -1,13 +1,10 @@
 /**readLineParser.js   recibe por el puerto serie un byte, lo muestra en consola.
  *      |--txdCnt.ino  contabiliza visualiza y envia dato por el puerto serie.
- * 
- * 
- * 
+  
  *      Descripción:
  *      Script codifocado en javaScript.  Recine por el puerto serie un byte
  * y lo muestra en la consola de la terminal.
- * 
- 
+ *
  *      Muestra el uso y la operación de parser, en la transformación de 
  * streams en el proceso de incomming data.  
  * 
@@ -21,6 +18,15 @@
  *                      and emitting data events.
  *                      https://serialport.io/docs/api-parser-ready
  * 
+ * Ejecución:
+ * 
+ *        \ParseTemplate>node readLineParser.js  
+ *     |            |              |             
+ *     |            |              |---script 
+ *     |            |------------------capteta contenedora
+ *     |-------------------------------línea de comandos  
+ * 
+ * versión  serialport": "7.1.5"  agosto 2019.
  */
 
 /**stream interface by requiring the serialport 
@@ -71,8 +77,10 @@ const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
         readyParser();
 
 /**Listening for the data event puts the port in flowing mode. */
-        parser.on('data', console.log);
-
+        parser.on('data',  function (data) 
+        {
+            console.log('\t Data:', data)
+        });
 
 /** */
 
