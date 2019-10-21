@@ -1,0 +1,25 @@
+MODELO-VISTA-CONTROLADOR.
+
+    Es una arquitectura de software que separa y relaciona una APLICACIÓN en TRES componentes. Por un lado
+se tiene un componente para la representación de la información y un componente para la interación del 
+usuario. Se presenta una interface cuya entrada primaria es el puntero del ratón y la salida es una 
+colección apropiada de gráficas y componentes de texto.
+
+Los TRES componentes se presentan e identifican en el orden presentado en [1]:  
+
+- 1/3 la VISTA, que se ocupa de la salida, administra gráficos y/o salida de texto de su aplicación. 
+
+- 2/3 el CONTROLADOR, que se ocupa de la entrada, tiene una dependencia uno a muchos entre objetos 
+de manera que cuando uno de los objetos cambia sus estado, notifica este cambio a todos los dependientes. 
+El controlador tiene un esquema de comunicación directo. El CONTROLADOR interpreta los eventos de entrada 
+del puntero del ratón y teclado generados por el usuario, comandando los cambios al MODELO como a la VISTA. 
+
+- 3/3 el MODELO, administra el comportamiento de datos de la aplicación, responde a solicitudes de 
+información de su propio estado (provenientes de la VISTA) y responde a instrucciones de cambio de 
+estado (usualmente del CONTROLADOR).
+
+
+[1] Steve Burbeck, Ph.D. Applications Programming in Smalltalk-80(TM):
+How to use Model-View-Controller (MVC). Consultado 19oct2019. 
+Disponible: https://web.archive.org/web/20120429161935/http://st-www.cs.illinois.edu/users/smarch/st-docs/mvc.html
+

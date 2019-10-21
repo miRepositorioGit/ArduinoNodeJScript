@@ -15,7 +15,9 @@ Para la instalación del entorno se recomienda consultar las siguientes fuentes 
 -Node.js Tutorial - 2 Instalación. https://www.youtube.com/watch?v=PLD8sZPevEU
 ```
 
-Paso 2. En la carpeta del Proyecto y en línea de comandos comienza con:
+Paso 2.  Instalar el entorno de dearrollo visual studio code...
+
+Paso 3. En la carpeta del Proyecto y en línea de comandos comienza con:
 ```
 > npm init      rellena los campos y valida la documetación
 
@@ -26,7 +28,7 @@ Paso 2. En la carpeta del Proyecto y en línea de comandos comienza con:
 ```
 El segundo y tercer ítem descargan e instalan lotes de paquetes de Node.js, que permiten acceder a los recursos de hardware del puerto serie y a hacer uso de la infraestructura de aplicaciones web mínima y flexible, para los sistemas operativos: Linux, OSX y Windows.
 
-Paso 3. Cada carpeta de proyecto tiene:
+Paso 4. Cada carpeta de proyecto tiene:
         
 * Un archivo con nombreDelProyecto.js, archivo de secuencia de comandos de JavaScript, administra los recursos de hardware y aplicaciones web.
 * Un archivo package-lock.json, contiene las dependencias y versiones de los paquetes de Node.js
@@ -34,7 +36,7 @@ Paso 3. Cada carpeta de proyecto tiene:
 * Una carpeta public contiene: un archivo 'html document', dos carpetas:  1/2 'js' con un archivo con interface.js 2/2 css                              con un archivo style.css.
 * Una carpeta arduinoFile con un archivo .ino, contiene la programación estructurada en lenguage C que admistra los recursos de hardware del sistema de desarrollo Arduino.
 
-Paso 4.  Nombre del recurso de puerto COM asignado al sistema de desarrollo Arduino.
+Paso 5.  Nombre del recurso de puerto COM asignado al sistema de desarrollo Arduino.
 Abrir el Administrador de dispositivos, en el árbol de hardware-recursos, home>Puertos(COM y LPT)>USB Serial Port(COM'n')
 donde el recurso para "comName" en nombreDelProyecto.js.
 

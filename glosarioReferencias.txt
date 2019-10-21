@@ -1,0 +1,23 @@
+
+
+
+DOM  Modelo de Objetos del Documento (DOM) 
+
+El Modelo de Objetos del Documento (DOM) es un API para documentos HTML y XML. 
+Proporciona una representación estructural del documento, permitiendo la 
+modificación de su contenido o su presentación visual. 
+Esencialmente, comunica las páginas web con los scripts o los lenguajes de programación.[1]
+
+
+
+
+
+
+
+
+
+
+
+[1] MDN web docs. moz://a. 
+DOM. Consultado: 08/oct/2019. Disponible: https://developer.mozilla.org/es/docs/DOM
+

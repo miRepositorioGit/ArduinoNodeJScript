@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+    <script type="text/javascript">
+var msg1 = "onClick"; 
+        function onClick()     { alert ("Presionaste un boton"), console.log(msg1); }
+        function doHover()     { alert ("Sobre el boton"); }
+        function onLoadDom()   { alert ("Modelo de Objetos del Documento en HTML"),
+                                         console.clear(); 
+                                }
+        function outLoadDom()  { alert (" Saludos "); }
+        function showInfo()    { setTimeout(function(){ alert("Hello"); }, 1000); }
+    
+    </script>
+    </head>
+    <body onload = "onLoadDom()"> 
+        <form>
+            <input type="button" value="onClick"      onclick="onClick()"/>
+            <input type="button" value="onMouseOver"  onmouseover="doHover()" />
+            <input type="button" value="onTime"       onclick="showInfo()" />
+        </form>
+    </body>
+</html>

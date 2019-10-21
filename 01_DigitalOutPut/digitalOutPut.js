@@ -1,7 +1,7 @@
-/** 01_DigitalOutPut.js    recibe, envia datos vía puerto serie, regula magnitud analógica.
+/** 01_DigitalOutPut.js    recibe, envia datos vía puerto serie, controla los estados binarios de un IO.
   *    |
   *    |--interface.js	      interface/enlaza elemento slider con led_control.js	
-  *    |--interface.html	  presenta la interface gráfica en el browser
+  *    |--interface.html	    presenta la interface gráfica en el browser
   *
   *   Dos elementos button html, montados en una interface gráfica Html, controlan 
   * los estados binarios en un puerto de una tarjeta Arduino. 
@@ -16,12 +16,12 @@
   * Instalación de  dependencias
   * 
   * >npm init                           
-  * >npm install express              instala middleware para el servidor
-  * >npm install serialport --save    instala middleware para el puerto serial
+  * >npm install express              instala middleware para el servidor express@4.17.1
+  * >npm install serialport --save    instala middleware para el puerto serial serialport@7.1.5
   * 
   * Ejecución de servidor. En en la carpeta del proyecto y en línea de comandos
   * 
-  * >node led_control.js
+  * >node digitalOutPut.js
   * 
   * Modos de operación:
   * 
@@ -64,8 +64,8 @@
 /** express application
  *  app: is an object calling the top-level express() fuction
  */
-var express = require('express');
-var serialport = require('serialport');
+var express     = require('express');
+var serialport  = require('serialport');
 var app = express();
 var ReadLine = serialport.parsers.Readline;
 var portName = "COM10";
@@ -73,12 +73,9 @@ var myPort = new serialport(portName, 9600);
 var parser = myPort.pipe(new ReadLine({ delimiter: '\n' }));	
 
 
-// variables
-current = 0;
-
-parser.on('open', function () {
-  console.log('connection is opened');
-});
+// parser.on('open', function () {
+//   console.log('connection is opened');
+// });
 
 /** direccionamiento 
  * objeto de solicitud (req)
@@ -114,12 +111,12 @@ parser.on('open', function () {
   app.get('/on', function (req, res) 
       {
       // Set LED
-        //payLoadBinary = req.query.payLoadData;
+      //payLoadBinary = req.query.payLoadData;
       // Answer
         answer = {status:1};
         res.json(answer);
       // envia vía serialPort payLoadData
-        process.stdout.write('\033c'); // limpia pantalla 
+        process.stdout.write('\033c'); // limpia pantalla de la terminal
         console.log("\n");
         console.log("\t Estado binario: " + "on" + "\n");
         sendToSerial("on" + "\n");

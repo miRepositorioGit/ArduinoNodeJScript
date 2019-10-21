@@ -1,49 +1,58 @@
-$( document ).ready(function() 
-{
+/** interface.js   controlador
+ * Propone una sintaxis para seleccionar elementos html y ejecutar para ejecutar acciones en ellos.
+ * Basic syntaxis:
+ *  $(selector).action() 
+ *  |     |        |------- A jQuery action() to be performed on the elements
+ *  |     |---------------- to "query (or find)" HTML elements 
+ *  |---------------------- A sign to define/acces jQuery
+ *                           |--- "#test" the element with id="test"
+ * 
+ *   selector             id at HTML         Description
+ *  #reset_btn      :   "reset_btn"         query status from reset button
+ *  #sliderPosition :   "sliderPosition"    get status slider position
+ * 
+ * [1] jQuery Syntax.  w3schools.com THE WORLD'S LARGEST WEB DEVELOPER SITE. 
+ * https://www.w3schools.com/jquery/jquery_syntax.asp
+ * 
+ */
 
-    $("#reset").click(function ()
-        {
-          // inicializa en cero y recarga Html
-          reset();
-        });
+/** Prevent any jQuery code from runing BEFORE the document is finished loading
+ */
 
-    $( "#sliderPosition" ).mouseup(function() 
-          {
-        // recupera sliderPosition
-            var payLoad   = $('#sliderPosition').val();
+$(document).ready(function () {
+  /** inicializa en cero y recarga Html    **/
+  $("#reset_btn").click(function () { reset(), console.log("reset button"); });
 
-         // envia dato
-            $.get('/set?payLoadData=' + payLoad);
-          
-        // muestra dato en consola 
-            showRxData(payLoad); 
-       
-        // muestra dato en interface.html    
-            showRxd(payLoad);
-          });
+  /** recupera, envía y muestra la posicion del sliderPosition */
+  $("#sliderPosition").mouseup(function () {
+    var payLoad = $('#sliderPosition').val(); // get the vlaue slider position 
+    sendPayLoad(payLoad);                     // get and send slider position to 
+    showRxData(payLoad);                      // show at Html console
+    showPosicion(payLoad);                    // show at Html muestra dato en interface.html    
+  });
 
-/** muestra dato recibido 
- * @param payLoad posición del slider
-*/
-    function showRxd(payLoad)
-          {
-            $('.textClass').text(payLoad);
-          };
+  /**recupera y envia dato
+   * 
+   */
+  function sendPayLoad(payLoad) {
+    $.get('/set?payLoadData=' + payLoad)
+  };
 
-/** muestra dato en consola html*/
-    function showRxData(arg0)
-          {
-            console.clear();
-            console.log("posición: " + arg0); 
-          };
+  /** muestra dato recibido en HTML
+   * @param payLoad posición del slider
+  */
+  function showPosicion(payLoad) { $('.textClassPosicion').text(payLoad); };
 
-/** inicializa en cero y recarga html */
-      function reset()
-      {
-        location.reload();
-        console.log("RESET");
-        $("#slider-result").html('0');
-        $("#sliderPosition").val('0');
-        $.get('/set?payLoadData=' + 0 );// posición inicial
-      };
+  /** muestra dato en consola html*/
+  function showRxData(arg0) { console.clear(), console.log("slider position: " + arg0); };
+
+  /** inicializa en cero y recarga html */
+  function reset() {
+    location.reload();
+    console.log("RESET");
+    showPosicion(0);
+    $("#slider-result").html('0');
+    $("#sliderPosition").val('0');
+    $.get('/set?payLoadData=' + 0);// posición inicial
+  };
 });

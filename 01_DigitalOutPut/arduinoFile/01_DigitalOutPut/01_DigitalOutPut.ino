@@ -18,7 +18,7 @@
  *     
  *  Hardware:   
  *  
- *         "on\n" :  HIGH -->  PWM,PD3,IO3---1kOhm---Led---0V.
+ *         "on\n"  : HIGH -->  PWM,PD3,IO3---1kOhm---Led---0V.
  *         "off\n" : LOW  -->  PWM,PD3,IO3---1kOhm---Led---0V.
  *    
  * fuente:

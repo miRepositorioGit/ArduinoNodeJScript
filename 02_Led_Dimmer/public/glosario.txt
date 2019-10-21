@@ -1,0 +1,11 @@
+meta Viewport   Define el área de pantalla al renderizar un documento. es el área 
+                disponible en la pantalla del navegador.  Área disponible para renderizar  y mostrar 
+                la página web.
+
+content="width=device-width, initial-scale=1"   Parámetros: anchura  de la pantalla. 
+                initial-scale=1 impide hacer zoom sobre el documento.
+
+<br> <br/>      Etiqueta para indicar un salto de línea.   
+<p> </p>                            
+
+
