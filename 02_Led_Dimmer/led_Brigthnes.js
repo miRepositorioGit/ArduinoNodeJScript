@@ -92,10 +92,11 @@ app.get('/set', function (req, res) {
   
   // recupera posición del slider 
   duty = req.query.payLoadData;
-  console.log(duty);
+  
   // convierte a formato JSON y envía
   answer = { Duty: duty };
   res.json(answer);
+
   // muestra y envia dato por el puerto serie
   showAtConsole(req.query.payLoadData);
   sendToSerial(req.query.payLoadData);
