@@ -7,7 +7,7 @@
  * http://diymakers.es/usando-el-puerto-serie-del-arduino/
 */
 
-#define pin3Pwm  3
+#define pin3Pwm    3
 #define MAX_SIZE  10
 
 char bufferIn[MAX_SIZE]; 

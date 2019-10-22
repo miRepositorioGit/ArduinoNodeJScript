@@ -34,8 +34,8 @@
      //while (1)
      for(;;)
      {
-		 PORTB = PORTB | 0X10;
-         //PORTB |= 1<<PORTB5;    // Writing HIGH to PB5
+		 //PORTB = PORTB | 0X10;
+         PORTB |= 1<<PORTB5;    // Writing HIGH to PB5
          _delay_ms(1000);       // Delay of 1 Second
          PORTB &= ~(1<<5);      // Writing LOW to PB5
          _delay_ms(1000);       // Delay of 1 Second

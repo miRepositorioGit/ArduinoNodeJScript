@@ -38,7 +38,7 @@ $(document).ready(function () {
     $.get('/set?payLoadData=' + payLoad)
   };
 
-  /** muestra dato recibido en HTML
+  /** muestra dato recibido en barra de texto HTML
    * @param payLoad posición del slider
   */
   function showPosicion(payLoad) { $('.textClassPosicion').text(payLoad); };

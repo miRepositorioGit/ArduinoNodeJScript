@@ -1,6 +1,6 @@
 /** 01_DigitalOutPut.js    recibe, envia datos vía puerto serie, controla los estados binarios de un IO.
   *    |
-  *    |--interface.js	      interface/enlaza elemento slider con led_control.js	
+  *    |--script.js	          interface/enlaza elementos button 	
   *    |--interface.html	    presenta la interface gráfica en el browser
   *
   *   Dos elementos button html, montados en una interface gráfica Html, controlan 
@@ -10,7 +10,7 @@
   *   HTML interface--->3000------>Web server<--------->COM10<-->Arduino----PD3,IO3---1kOhm---Led---0V.
   *     |                             |                            |                          
   *	    |-- interface.html            |--01_DigitalOutPut.js       |-- 01_DigitalOutPut.ino      
-  *                                   |--interface.js  
+  *                                   |--script.js  
   * 
   * 
   * Instalación de  dependencias
@@ -43,11 +43,11 @@
   *         
   *         http://192.168.1.73:3000/on
   *                         |        |-- HIGH --> PD3,IO3---1kOhm---Led---0V.
-  *                         |----------- Dirección IPv4.
+  *                         |----------- Dirección de ésta computadora IPv4.
   * 
   *         http://localhost:3000/off
   *                         |        |-- LOW --> PD3,IO3---1kOhm---Led---0V.
-  *                         |----------- loopback
+  *                         |----------- Dirección de ésta computadora IPv4.
   *   
   * 
   *   fuente:
@@ -64,18 +64,13 @@
 /** express application
  *  app: is an object calling the top-level express() fuction
  */
-var express     = require('express');
-var serialport  = require('serialport');
+var express = require('express');
+var serialport = require('serialport');
 var app = express();
 var ReadLine = serialport.parsers.Readline;
 var portName = "COM10";
 var myPort = new serialport(portName, 9600);
-var parser = myPort.pipe(new ReadLine({ delimiter: '\n' }));	
-
-
-// parser.on('open', function () {
-//   console.log('connection is opened');
-// });
+var parser = myPort.pipe(new ReadLine({ delimiter: '\n' }));
 
 /** direccionamiento 
  * objeto de solicitud (req)
@@ -86,119 +81,129 @@ var parser = myPort.pipe(new ReadLine({ delimiter: '\n' }));
 
 /** hace uso de directorio con archivos 
 *   estáticos contenidos en 'public'
-*/ 
-      app.use(express.static('public'));
+*/
+app.use(express.static('public'));
 
 /** webServer recibe una petición 
  *         envia ruta de webPage
  * '/'   : root path  interface.html
- * '/doc': documentation.html
  * '/on' : payLoadData
  * 
  * */
-      app.get('/', function (req, res) 
-      {
-        res.sendFile(__dirname + '/public/interface.html'); // root path
-      });
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/public/interface.html'); // root path
+});
 
-     
+
 /**Load data from the server using 
  * a HTTP GET request.
  * A plain object or string that 
  * is sent to the server with the 
  * request.
  */
-  app.get('/on', function (req, res) 
-      {
-      // Set LED
-      //payLoadBinary = req.query.payLoadData;
-      // Answer
-        answer = {status:1};
-        res.json(answer);
-      // envia vía serialPort payLoadData
-        process.stdout.write('\033c'); // limpia pantalla de la terminal
-        console.log("\n");
-        console.log("\t Estado binario: " + "on" + "\n");
-        sendToSerial("on" + "\n");
-      });
-/**Load data from the server using 
- * a HTTP GET request.
- * A plain object or string that 
- * is sent to the server with the 
- * request.
- */
-app.get('/off', function (req, res) 
-{
-// Set LED
-  //payLoadBinary = req.query.payLoadData;
-// Answer
-  answer = {status: 0};
+app.get('/on', function (req, res) {
+  answer = { status: 1 };
   res.json(answer);
-// envia vía serialPort payLoadData
+  // envia vía serialPort payLoadData
+  process.stdout.write('\033c'); // limpia pantalla de la terminal
+  console.log("\n");
+  console.log("\t Estado binario: " + "on" + "\n");
+  sendToSerial("on" + "\n");
+});
+
+
+/**Load data from the server using 
+ * a HTTP GET request.
+ * A plain object or string that 
+ * is sent to the server with the 
+ * request.
+ */
+app.get('/off', function (req, res) {
+  answer = { status: 0 };
+  res.json(answer);
+  // envia vía serialPort payLoadData
   process.stdout.write('\033c'); // limpia pantalla 
   console.log("\n");
   console.log("\t Estado binario: " + "off" + "\n");
   sendToSerial("off" + "\n");
-  });
+});
 
-app.get('/', async(req,res) => {
-  const promise = new Promise((resolve,reject)=>{
-    myPort.on('data', (data,err) => {
+app.get('/', async (req, res) => {
+  const promise = new Promise((resolve, reject) => {
+    myPort.on('data', (data, err) => {
       if (err) {
         reject(err);
         return;
       }
       resolve(data[0]);
-      });
-     })
-     const data = await promise;
-     res.json(data);
-     res.send(data);
-     console.log("rxd:"+data)
     });
+  })
+  const data = await promise;
+  res.json(data);
+  res.send(data);
+  console.log("rxd:" + data)
+});
 
 /** manejador de errores */
-    app.use(function(req, res, next) 
-      {
-      res.status(404).send('Sorry cant find that!...');
-      });
+app.use(function (req, res, next) {
+  res.status(404).send('Sorry cant find that!...');
+});
 
-    app.use(function(err, req, res, next) 
-      {
-      console.error(err.stack);
-      res.status(500).send('Something broke!');
-      });
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 /** RxD recibe carga útil de serialPort
                 * @param callback recibe data y convierte en entero
                 */
-               parser.on('data', function (data) 
-               {
-                 console.log("\t Receiving from serial: " + data);
+parser.on('data', function (data) {
+  console.log("\t Receiving from serial: " + data);
+});
 
-                app.get('/rxd',function(req,res)
-                {
-                  answer={Rxd:data};
-                  res.json(answer);
-                  res.send(data);
-                });
-               }); 
+function test() {
+
+}
 
 /** TxD envia carga útil serialPort
   * @param {*} data payLoaData
  */
 function sendToSerial(data) {
- console.log("\t Sending to serial: " + data);
- myPort.write(data);
+  console.log("\t Sending to serial: " + data);
+  myPort.write(data);
 };
+
 
 // Start server
 app.listen(3000, showInfo());
 
-function showInfo()
-    {
-        console.log(' Control binario de salida digital'); 
-        console.log('open browser at  http://localhost:3000/ ');
-        console.log('open browser at  http://localhost:3000/on');
-        console.log('open browser at  http://localhost:3000/off');
-    };
+function showInfo() {
+  console.log(formatDate(new Date()));  // show current date-time in console
+  console.log(' Control binario de salida digital');
+  console.log('open browser at  http://localhost:3000/ ');
+  console.log('open browser at  http://localhost:3000/on');
+  console.log('open browser at  http://localhost:3000/off');
+};
+
+
+/** recupera la fecha 
+  * fuente: How to format a JavaScript date
+ * https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+*/
+
+function formatDate(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
+
+
