@@ -17,7 +17,7 @@
   "author": "Martín  Cordero",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "serialport": "^7.1.5"
   }
 }
